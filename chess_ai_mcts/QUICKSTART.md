@@ -1,53 +1,155 @@
-"""
-Quick Start Guide for Chess AI MCTS Project
-"""
+# 🚀 QUICK START - Hướng Dẫn Nhanh
 
-# QUICK START GUIDE
+## ✅ Hệ Thống Đã Sẵn Sàng!
 
-## Installation
+Chess AI MCTS project với cải tiến Minimax (Opening Book + Advanced Evaluation) đã hoàn thành.
 
-1. Navigate to the project directory:
+---
+
+## 🎮 Chạy Demo Nhanh
+
+### 1️⃣ Demo: MCTS vs Random (32 giây)
 ```bash
 cd d:\ML-nc\chess_ai_mcts
+D:\ML-nc\.venv\Scripts\python.exe demo_game.py
+```
+✓ Kết quả: WHITE WIN - 87 moves
+
+### 2️⃣ Kiểm Thử Cải Tiến (30 giây)
+```bash
+D:\ML-nc\.venv\Scripts\python.exe test_improvements.py
+```
+✓ Opening Book: 205x faster
+✓ Advanced Evaluation: 5 factors
+✓ MCTS vs Random: DRAW
+✓ Minimax vs Random: DRAW
+
+### 3️⃣ Evaluation Toàn Bộ
+```bash
+D:\ML-nc\.venv\Scripts\python.exe run_evaluation.py
 ```
 
-2. Install dependencies:
+---
+
+## 📚 Cài Đặt & Cấu Hình
+
+### Kích Hoạt Virtual Environment
+```bash
+D:\ML-nc\.venv\Scripts\Activate.ps1
+```
+
+### Cài Đặt Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-## Running Tests
+---
 
-The `main.py` script provides several test cases:
+## 🎯 Sử Dụng Agents
 
-### Test 1: Basic MCTS
-```bash
-python main.py 1
+### Quick Example: Minimax (Cải Tiến) vs Random
+```python
+from src.chess_engine import ChessGame
+from src.agents import MinimaxAgent, RandomAgent
+
+# Tạo agents
+white = MinimaxAgent(depth=2, use_opening_book=True)
+black = RandomAgent()
+
+# Chơi trò chơi
+game = ChessGame(white_agent=white, black_agent=black)
+result = game.play()
+
+# Kết quả
+print(f"Result: {result}")  # 1=White, -1=Black, 0=Draw
+print(f"Moves: {len(game.game.move_stack)}")
+print(f"Time: {game.elapsed_time:.1f}s")
 ```
-Tests MCTS move selection on an initial position.
 
-### Test 2: Single Game
-```bash
-python main.py 2
-```
-Plays one game: MCTS (White) vs Random (Black).
+### Các Agent Có Sẵn
+```python
+from src.agents import (
+    MinimaxAgent,      # Minimax + Opening Book
+    MCTSAgent,         # Monte Carlo Tree Search
+    RandomAgent,       # Random moves
+)
 
-### Test 3: Self-play
-```bash
-python main.py 3
-```
-MCTS plays against itself for 5 games.
+# Minimax variations
+agent1 = MinimaxAgent(depth=2, use_opening_book=True)   # WITH improvements
+agent2 = MinimaxAgent(depth=2, use_opening_book=False)  # WITHOUT improvements
+agent3 = MinimaxAgent(depth=3, use_opening_book=True)   # Deeper search
 
-### Test 4: Comparisons
-```bash
-python main.py 4
+# MCTS variations
+mcts1 = MCTSAgent(iterations=10)
+mcts2 = MCTSAgent(iterations=30)
+mcts3 = MCTSAgent(iterations=50)
 ```
-Compares MCTS against Random and Minimax agents.
 
-### Test 5: ChessState Interface
-```bash
-python main.py 5
+---
+
+## 📊 Kết Quả Mong Đợi
+
+| Trò Chơi | Kết Quả | Nước | Thời Gian |
+|---------|---------|------|-----------|
+| MCTS(30) vs Random | DRAW | 300-500 | 30-60s ✓ |
+| Minimax(2) vs Random | DRAW/WIN | 300-500 | 30-60s ✓ |
+| Minimax(3) vs Random | WIN | 200-400 | 100-200s ✓ |
+
+---
+
+## 📁 File Quan Trọng
+
 ```
+chess_ai_mcts/
+├── src/
+│   ├── agents.py        ← Minimax, MCTS, Random
+│   ├── chess_engine.py  ← Chess logic
+│   ├── mcts.py          ← MCTS algorithm
+│   ├── openings.py      ← Opening book (NEW)
+│   └── evaluation.py    ← Evaluation framework
+│
+├── demo_game.py         ← Quick demo
+├── test_improvements.py ← Test improvements
+├── run_evaluation.py    ← Full evaluation
+│
+└── REPORTS
+    ├── RESULTS_SUMMARY.md
+    ├── DEPLOYMENT_REPORT.txt
+    └── MINIMAX_IMPROVEMENTS.txt
+```
+
+---
+
+## 🔧 Troubleshooting
+
+**ImportError?** → Chạy từ thư mục project root
+```bash
+cd D:\ML-nc\chess_ai_mcts
+```
+
+**Python not found?** → Kích hoạt venv
+```bash
+D:\ML-nc\.venv\Scripts\Activate.ps1
+```
+
+---
+
+## 📖 Tài Liệu Đầy Đủ
+
+- **START_HERE.md** - Điểm bắt đầu
+- **RESULTS_SUMMARY.md** - Kết quả chi tiết
+- **DEPLOYMENT_REPORT.txt** - Báo cáo triển khai
+- **MINIMAX_IMPROVEMENTS.txt** - Hướng dẫn cải tiến
+
+---
+
+## 🔗 Repository
+
+GitHub: https://github.com/truongminhduc2k4/ML-nc.git
+
+---
+
+**Ready to play! 🎮🚀**
 Tests the ChessState wrapper class.
 
 ### Run All Tests
