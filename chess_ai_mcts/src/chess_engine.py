@@ -210,9 +210,19 @@ class ChessGame:
     
     def get_statistics(self) -> dict:
         """Get game statistics"""
+        # Reconstruct move history in algebraic notation
+        board_copy = chess.Board()
+        move_history_san = []
+        for move in self.move_history:
+            try:
+                move_history_san.append(board_copy.san(move))
+                board_copy.push(move)
+            except:
+                move_history_san.append(str(move))
+        
         return {
             'moves': self.state.move_count(),
-            'move_history': [self.state.board.san(m) for m in self.move_history],
+            'move_history': move_history_san,
             'move_times': self.move_times,
             'avg_move_time': sum(self.move_times) / len(self.move_times) if self.move_times else 0,
             'result': self.state.get_result(),
